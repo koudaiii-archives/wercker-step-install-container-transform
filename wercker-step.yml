@@ -17,3 +17,6 @@ properties:
   region:
     type: string
     required: true
+  cluster:
+    type: string
+    required: true
