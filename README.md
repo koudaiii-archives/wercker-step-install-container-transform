@@ -14,4 +14,5 @@ deploy:
       secret: $AWS_SECRET
       region: $AWS_REGION
       cluster: $AWS_ECS_CLUSTER
+      definition: $AWS_ECS_DEFINITION
 ```
