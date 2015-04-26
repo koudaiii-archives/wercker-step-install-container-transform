@@ -33,7 +33,7 @@ sudo ntpdate ntp.ubuntu.com
 
 echo 'Configuring based on parameters...'
 aws configure set aws_access_key_id $WERCKER_INSTALL_CONTAINER_TRANSFORM_KEY
-aws configure set aws_access_key_id $WERCKER_INSTALL_CONTAINER_TRANSFORM_SECRET
+aws configure set aws_secret_access_key $WERCKER_INSTALL_CONTAINER_TRANSFORM_SECRET
 aws configure set default.region $WERCKER_INSTALL_CONTAINER_TRANSFORM_REGION
 
 echo 'register task definition'
