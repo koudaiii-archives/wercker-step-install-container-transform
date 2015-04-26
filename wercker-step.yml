@@ -20,3 +20,6 @@ properties:
   cluster:
     type: string
     required: true
+  definition:
+    type: string
+    required: true

@@ -17,6 +17,10 @@ if [ ! -n "$WERCKER_INSTALL_CONTAINER_TRANSFORM_CLUSTER" ]; then
   error 'Please specify cluster property'
   exit 1
 fi
+if [ ! -n "$WERCKER_INSTALL_CONTAINER_TRANSFORM_DEFINITION" ]; then
+  error 'Please specify cluster property'
+  exit 1
+fi
 
 echo 'Synchronizing References in apt-get...'
 sudo apt-get update
@@ -33,10 +37,10 @@ aws configure set aws_access_key_id $WERCKER_INSTALL_CONTAINER_TRANSFORM_SECRET
 aws configure set default.region $WERCKER_INSTALL_CONTAINER_TRANSFORM_REGION
 
 echo 'register task definition'
-aws ecs register-task-definition --family wercker --container-definitions "$(cat docker-compose.yml | container-transform)"
+aws ecs register-task-definition --family $WERCKER_INSTALL_CONTAINER_TRANSFORM_DEFINITION --container-definitions "$(cat docker-compose.yml | container-transform)"
 
 echo ''
-aws ecs run-task --cluster $WERCKER_INSTALL_CONTAINER_TRANSFORM_CLUSTER --task-definition wercker
+aws ecs run-task --cluster $WERCKER_INSTALL_CONTAINER_TRANSFORM_CLUSTER --task-definition $WERCKER_INSTALL_CONTAINER_TRANSFORM_DEFINITION
 
 echo 'Done.'
 
