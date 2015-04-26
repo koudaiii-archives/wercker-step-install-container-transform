@@ -15,4 +15,5 @@ deploy:
       region: $AWS_REGION
       cluster: $AWS_ECS_CLUSTER
       definition: $AWS_ECS_DEFINITION
+      count: $AWS_ECS_COUNT
 ```

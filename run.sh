@@ -21,6 +21,10 @@ if [ ! -n "$WERCKER_INSTALL_CONTAINER_TRANSFORM_DEFINITION" ]; then
   error 'Please specify cluster property'
   exit 1
 fi
+if [ ! -n "$WERCKER_INSTALL_CONTAINER_TRANSFORM_COUNT" ]; then
+    echo '[WARN] No scale container'
+fi
+
 
 echo 'Synchronizing References in apt-get...'
 sudo apt-get update
@@ -40,8 +44,7 @@ echo 'register task definition'
 aws ecs register-task-definition --family $WERCKER_INSTALL_CONTAINER_TRANSFORM_DEFINITION --container-definitions "$(cat docker-compose.yml | container-transform)"
 
 echo ''
-aws ecs run-task --cluster $WERCKER_INSTALL_CONTAINER_TRANSFORM_CLUSTER --task-definition $WERCKER_INSTALL_CONTAINER_TRANSFORM_DEFINITION
+aws ecs run-task --cluster $WERCKER_INSTALL_CONTAINER_TRANSFORM_CLUSTER --task-definition $WERCKER_INSTALL_CONTAINER_TRANSFORM_DEFINITION --count $WERCKER_INSTALL_CONTAINER_TRANSFORM_COUNT
 
 echo 'Done.'
-
 
